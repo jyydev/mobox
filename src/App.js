@@ -47,7 +47,6 @@ const Input = () => {
     epic: 0,
   });
   const [level, setLevel] = useState([1, 2]);
-  // const [level, setLevel] = useState(11);
 
   var total = 0;
   rarities.map((rarity) => {
@@ -86,8 +85,8 @@ const Input = () => {
         />
         MOBOX: upgrade cost
       </h2>
-      <p>subtitle </p>
-      <h3>Heading</h3>
+      <p>Calculator for Momo NFT level upgrade cost </p>
+      <h3>{total} USD</h3>
       <article>
         <form className='form'>
           <h4>Price</h4>
@@ -102,16 +101,13 @@ const Input = () => {
                     name={rarity}
                     value={price[rarity]}
                     onChange={(e) => {
-                      // setPrice((prev) => {
-                      //   return { ...prev, [rarity]: e.target.value };
-                      // });
                       setPrice({
                         ...price,
                         [rarity]: e.target.value,
                       });
                     }}
                   />
-                  <div>BUSD</div>
+                  <div>USD</div>
                 </React.Fragment>
               );
             })}
@@ -124,6 +120,7 @@ const Input = () => {
             value={level[0]}
             size='5'
             onChange={(e) => {
+              if (e.target.value <= 0 && e.target.value) e.target.value = 1;
               setLevel({ ...level, 0: e.target.value });
             }}
           />
@@ -135,16 +132,15 @@ const Input = () => {
             size='5'
             value={level[1]}
             onChange={(e) => {
+              if (e.target.value > 30) e.target.value = 30;
               setLevel({ ...level, 1: e.target.value });
             }}
           />
         </form>
         <div className='item'>
-          <p></p>
-          <h3>
-            <small>=</small> {total} USD
-          </h3>
-          <p></p>
+          <p>Total</p>
+          <h3>{total}</h3>
+          <p>USD</p>
         </div>
         {rarities.map((rarity) => {
           return (
@@ -158,7 +154,6 @@ const Input = () => {
             </div>
           );
         })}
-        {/* <Result price={price} /> */}
       </article>
     </>
   );
