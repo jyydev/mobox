@@ -118,7 +118,7 @@ const Input = () => {
             id='from'
             name='from'
             value={level[0]}
-            size='5'
+            size='3'
             onChange={(e) => {
               if (e.target.value <= 0 && e.target.value) e.target.value = 1;
               setLevel({ ...level, 0: e.target.value });
@@ -129,13 +129,21 @@ const Input = () => {
             type='text'
             id='to'
             name='to'
-            size='5'
+            size='3'
             value={level[1]}
             onChange={(e) => {
               if (e.target.value > 30) e.target.value = 30;
               setLevel({ ...level, 1: e.target.value });
             }}
           />
+          <button
+            type='button'
+            onClick={() => {
+              setLevel({ ...level, 0: 1, 1: 30 });
+            }}
+          >
+            max
+          </button>
         </form>
         <div className='item'>
           <p>Total</p>
