@@ -1,4 +1,4 @@
-# Breeding Price Calculator for Axie Infinity (SLP, AXS, ETH, USD)
+# Mobox Upgrade Cost
 
 - Live Preview: https://axie.vercel.app/
 
