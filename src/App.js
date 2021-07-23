@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 const Input = () => {
   const [price, setPrice] = useState({
-    common: 0,
-    uncommon: 0,
-    unique: 0,
-    rare: 0,
+    common: 20,
+    uncommon: 20,
+    unique: 20,
+    rare: 400,
   });
   const rarities = ['common', 'uncommon', 'unique', 'rare'];
 
@@ -228,6 +228,12 @@ const Input = () => {
             <br />
             <div>{(powers.to * 2) / 100}</div>
           </h4>
+        </div>
+
+        <div className='item'>
+          <p>Return in</p>
+          <h3>{(total / ((powers.from * 2) / 100)).toFixed()}</h3>
+          <p>days</p>
         </div>
 
         <div className='item'>
