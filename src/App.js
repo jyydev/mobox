@@ -232,7 +232,7 @@ const Input = () => {
 
         <div className='item'>
           <p>Return in</p>
-          <h3>{(total / ((powers.from * 2) / 100)).toFixed()}</h3>
+          <h3>{(total / ((powers.increased * 2) / 100)).toFixed()}</h3>
           <p>days</p>
         </div>
 
