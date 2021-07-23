@@ -53,11 +53,43 @@ const Input = () => {
     total += price[rarity] * sum[rarity];
   });
 
+  const [basePower, setBasePower] = useState(110);
+  const [powers, setPowers] = useState({
+    from: 0,
+    to: 0,
+    increased: 0,
+  });
+  // const [mbox, setMbox] = useState(0);
+
   useEffect(() => {
     var common = 0;
     var uncommon = 0;
     var unique = 0;
     var rare = 0;
+
+    function levelUp(level) {
+      var powerUp = basePower;
+      for (; level > 1; level--) {
+        powerUp += 25 + basePower * 0.5;
+        if (level == 5) powerUp += 7 + basePower * 0.15;
+        if (level == 10) powerUp += 15 + basePower * 0.3;
+        if (level == 15) powerUp += 23 + basePower * 0.45;
+        if (level == 20) powerUp += 30 + basePower * 0.6;
+        if (level == 25) powerUp += 37 + basePower * 0.75;
+        if (level == 30) powerUp += 45 + basePower * 0.9;
+      }
+      return powerUp;
+    }
+    function getPowers() {
+      setPowers({
+        ...powers,
+        from: levelUp(level[0]),
+        to: levelUp(level[1]),
+        increased: levelUp(level[1]) - levelUp(level[0]),
+      });
+      // setMbox(powers.increased * 2);
+    }
+    getPowers();
 
     Object.keys(costs).map((e) => {
       if (parseInt(e) >= level[0] && parseInt(e) < level[1]) {
@@ -73,7 +105,8 @@ const Input = () => {
       unique,
       rare,
     });
-  }, [price, level]);
+  }, [price, level, basePower]);
+
   return (
     <>
       <h2>
@@ -87,6 +120,7 @@ const Input = () => {
       </h2>
       <p>Calculator for Momo NFT level upgrade cost </p>
       <h3>{total} USD</h3>
+
       <article>
         <form className='form'>
           <h4>Price</h4>
@@ -112,41 +146,92 @@ const Input = () => {
               );
             })}
           </div>
-          <span>Level : </span>
-          <input
-            type='text'
-            id='from'
-            name='from'
-            value={level[0]}
-            size='3'
-            onChange={(e) => {
-              if (e.target.value <= 0 && e.target.value) e.target.value = 1;
-              setLevel({ ...level, 0: e.target.value });
-            }}
-          />
-          &#10132; {}
-          <input
-            type='text'
-            id='to'
-            name='to'
-            size='3'
-            value={level[1]}
-            onChange={(e) => {
-              if (e.target.value > 30) e.target.value = 30;
-              setLevel({ ...level, 1: e.target.value });
-            }}
-          />
-          <button
-            type='button'
-            onClick={() => {
-              setLevel({ ...level, 0: 1, 1: 30 });
-            }}
-          >
-            max
-          </button>
+          <div>
+            <span>Level : </span>
+            <input
+              type='text'
+              id='from'
+              name='from'
+              value={level[0]}
+              size='3'
+              onChange={(e) => {
+                if (e.target.value <= 0 && e.target.value) e.target.value = 1;
+                setLevel({ ...level, 0: e.target.value });
+              }}
+            />
+            &#10132; {}
+            <input
+              type='text'
+              id='to'
+              name='to'
+              size='3'
+              value={level[1]}
+              onChange={(e) => {
+                if (e.target.value > 30) e.target.value = 30;
+                setLevel({ ...level, 1: e.target.value });
+              }}
+            />
+            <button
+              type='button'
+              onClick={() => {
+                setLevel({ ...level, 0: 1, 1: 30 });
+              }}
+            >
+              max
+            </button>
+          </div>
+
+          <div>
+            <span>Base hash power : </span>
+            <input
+              type='text'
+              id='from'
+              name='from'
+              value={basePower}
+              size='4'
+              onChange={(e) => {
+                setBasePower(parseInt(e.target.value) || 0);
+              }}
+            />
+          </div>
         </form>
+
+        <h3> {basePower} base hash power</h3>
+
         <div className='item'>
-          <p>Total</p>
+          <h4>
+            <small>Lvl {level[0]}</small> <div>{powers.from}</div>
+          </h4>
+          <h3>
+            <small>Hash power</small>
+            <div>+{powers.increased}</div>
+          </h3>
+          <h4>
+            <small>Lvl {level[1]}</small>
+            <br />
+            <div>{powers.to}</div>
+          </h4>
+        </div>
+        <div className='item'>
+          <h4>
+            <small>Lvl {level[0]}</small>
+            <br />
+            <div>{(powers.from * 2) / 100}</div>
+          </h4>
+          <h3>
+            <small>MBOX per day</small>
+            <div>+{(powers.increased * 2) / 100}</div>
+          </h3>
+          {/* <h3>+{mbox / 100}</h3> */}
+          <h4>
+            <small>Lvl {level[1]}</small>
+            <br />
+            <div>{(powers.to * 2) / 100}</div>
+          </h4>
+        </div>
+
+        <div className='item'>
+          <p>Require</p>
           <h3>{total}</h3>
           <p>USD</p>
         </div>
