@@ -5,9 +5,9 @@ const Input = () => {
     common: 0,
     uncommon: 0,
     unique: 0,
-    epic: 0,
+    rare: 0,
   });
-  const rarities = ['common', 'uncommon', 'unique', 'epic'];
+  const rarities = ['common', 'uncommon', 'unique', 'rare'];
 
   const costs = {
     1: [2, 0, 0, 0],
@@ -44,7 +44,7 @@ const Input = () => {
     common: 0,
     uncommon: 0,
     unique: 0,
-    epic: 0,
+    rare: 0,
   });
   const [level, setLevel] = useState([1, 2]);
 
@@ -57,14 +57,14 @@ const Input = () => {
     var common = 0;
     var uncommon = 0;
     var unique = 0;
-    var epic = 0;
+    var rare = 0;
 
     Object.keys(costs).map((e) => {
       if (parseInt(e) >= level[0] && parseInt(e) < level[1]) {
         common += costs[e][0];
         uncommon += costs[e][1];
         unique += costs[e][2];
-        epic += costs[e][3];
+        rare += costs[e][3];
       }
     });
     setSum({
