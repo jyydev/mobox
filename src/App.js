@@ -65,6 +65,22 @@ const Input = () => {
   //   to: powers.to * 2,
   //   increased: powers.increased * 2,
   // };
+  const [mbox, setMbox] = useState({
+    from: 0,
+    to: 0,
+    increased: 0,
+  });
+
+  useEffect(() => {
+    function mboxMultiply(v) {
+      return parseFloat((v * 2) / 100).toFixed(2);
+    }
+    setMbox({
+      from: mboxMultiply(powers.from),
+      to: mboxMultiply(powers.to),
+      increased: mboxMultiply(powers.increased),
+    });
+  }, [powers]);
 
   useEffect(() => {
     var common = 0;
@@ -92,7 +108,6 @@ const Input = () => {
         to: levelUp(level[1]),
         increased: levelUp(level[1]) - levelUp(level[0]),
       });
-      // setMbox(powers.increased * 2);
     }
     getPowers();
 
@@ -205,33 +220,32 @@ const Input = () => {
 
         <div className='item'>
           <h4>
-            <small>Lvl {level[0]}</small> <div>{powers.from}</div>
+            <small>Lvl {level[0]}</small> <div>{powers.from.toFixed()}</div>
           </h4>
           <h3>
             <small>Hash power</small>
-            <div>+{powers.increased}</div>
+            <div>+{powers.increased.toFixed()}</div>
           </h3>
           <h4>
             <small>Lvl {level[1]}</small>
             <br />
-            <div>{powers.to}</div>
+            <div>{powers.to.toFixed()}</div>
           </h4>
         </div>
         <div className='item'>
           <h4>
             <small>Lvl {level[0]}</small>
             <br />
-            <div>{(powers.from * 2) / 100}</div>
+            <div>{mbox.from}</div>
           </h4>
           <h3>
             <small>MBOX per day</small>
-            <div>+{(powers.increased * 2) / 100}</div>
+            <div>+{mbox.increased}</div>
           </h3>
-          {/* <h3>+{mbox / 100}</h3> */}
           <h4>
             <small>Lvl {level[1]}</small>
             <br />
-            <div>{(powers.to * 2) / 100}</div>
+            <div>{mbox.to}</div>
           </h4>
         </div>
 
@@ -246,9 +260,9 @@ const Input = () => {
           <h3>{total}</h3>
           <p>USD</p>
         </div>
-        {rarities.map((rarity) => {
+        {rarities.map((rarity,i) => {
           return (
-            <div className='item'>
+            <div className='item' key={i}>
               <small>{rarity}:</small>
               <h4>{sum[rarity]}</h4>
               <small>x</small>
