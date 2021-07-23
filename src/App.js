@@ -60,6 +60,11 @@ const Input = () => {
     increased: 0,
   });
   // const [mbox, setMbox] = useState(0);
+  // var mbox = {
+  //   from: powers.from * 2 / 100,
+  //   to: powers.to * 2,
+  //   increased: powers.increased * 2,
+  // };
 
   useEffect(() => {
     var common = 0;
