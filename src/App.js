@@ -9,6 +9,7 @@ const Input = () => {
     rare: 600,
   });
   const rarities = ['momo', 'common', 'uncommon', 'unique', 'rare'];
+  const [rarity, setRarity] = useState('rare');
 
   const costs = {
     1: [2, 0, 0, 0],
@@ -56,7 +57,8 @@ const Input = () => {
   });
 
   const [basePower, setBasePower] = useState(110);
-  const [bonusPower, setBonusPower] = useState(14);
+  const [bonusPower, setBonusPower] = useState(0);
+  // const [bonusPower, setBonusPower] = useState(14);
   const [set, setSet] = useState(false);
   const [powers, setPowers] = useState({
     from: 0,
@@ -91,13 +93,23 @@ const Input = () => {
     function levelUp(level) {
       var powerUp = basePower;
       for (; level > 1; level--) {
-        powerUp += 25 + basePower * 0.5;
-        if (level == 5) powerUp += 7 + basePower * 0.15;
-        if (level == 10) powerUp += 15 + basePower * 0.3;
-        if (level == 15) powerUp += 23 + basePower * 0.45;
-        if (level == 20) powerUp += 30 + basePower * 0.6;
-        if (level == 25) powerUp += 37 + basePower * 0.75;
-        if (level == 30) powerUp += 45 + basePower * 0.9;
+        if (rarity === 'rare') {
+          powerUp += 25 + basePower * 0.5;
+          if (level == 5) powerUp += 7 + basePower * 0.15;
+          if (level == 10) powerUp += 15 + basePower * 0.3;
+          if (level == 15) powerUp += 23 + basePower * 0.45;
+          if (level == 20) powerUp += 30 + basePower * 0.6;
+          if (level == 25) powerUp += 37 + basePower * 0.75;
+          if (level == 30) powerUp += 45 + basePower * 0.9;
+        } else if (rarity === 'unique') {
+          powerUp += 20 + (basePower - 10) * 0.5;
+          if (level == 5) powerUp += 3 + basePower * 0.1;
+          if (level == 10) powerUp += 6 + basePower * 0.2;
+          if (level == 15) powerUp += 9 + basePower * 0.3;
+          if (level == 20) powerUp += 12 + basePower * 0.4;
+          if (level == 25) powerUp += 15 + basePower * 0.5;
+          if (level == 30) powerUp += 18 + basePower * 0.6;
+        }
       }
       return powerUp;
     }
@@ -142,7 +154,7 @@ const Input = () => {
       unique,
       rare,
     });
-  }, [price, level, basePower, bonusPower, set]);
+  }, [price, rarity, level, basePower, bonusPower, set]);
 
   return (
     <>
@@ -183,6 +195,32 @@ const Input = () => {
               );
             })}
           </div>
+          <div>
+            <span>Rarity : </span>
+            <input
+              type='radio'
+              id='radio_unique'
+              name='rarity'
+              value='unique'
+              checked={rarity === 'unique'}
+              onChange={() => {
+                setRarity('unique');
+              }}
+            />
+              <label htmlFor='radio_unique'>Unique</label>
+            <input
+              type='radio'
+              id='radio_rare'
+              name='rarity'
+              value='unique'
+              checked={rarity === 'rare'}
+              onChange={() => {
+                setRarity('rare');
+              }}
+            />
+              <label htmlFor='radio_rare'>Rare</label>
+          </div>
+
           <div>
             <span>Level : </span>
             <input
@@ -244,9 +282,8 @@ const Input = () => {
             %
           </div>
           <div>
-            <label for='set'>Rare set: +300 hash power</label> {}
+            <label htmlFor='set'>Rare set +300 hash power : </label> {}
             <input
-              class='styled-checkbox'
               type='checkbox'
               id='set'
               name='set'

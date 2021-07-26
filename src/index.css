@@ -351,10 +351,15 @@ input[type=checkbox]
   margin-left: 0.1rem;
 }
 
-/* Might want to wrap a span around your checkbox text */
-.checkboxtext
+input[type=radio]
 {
-  /* Checkbox text */
-  font-size: 110%;
-  display: inline;
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.2); /* IE */
+  -moz-transform: scale(1.2); /* FF */
+  -webkit-transform: scale(1.2); /* Safari and Chrome */
+  -o-transform: scale(1.2); /* Opera */
+  transform: scale(1.2);
+  margin-right: -0.2rem;
+  margin-left: 0.3rem;
+  vertical-align: middle;
 }
