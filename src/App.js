@@ -9,7 +9,7 @@ const Input = () => {
     rare: 600,
   });
   const rarities = ['momo', 'common', 'uncommon', 'unique', 'rare'];
-
+  const [rarity, setRarity] = useState('');
   const costs = {
     1: [2, 0, 0, 0],
     2: [1, 1, 0, 0],
@@ -99,6 +99,7 @@ const Input = () => {
           if (level == 20) powerUp += 30 + basePower * 0.6;
           if (level == 25) powerUp += 37 + basePower * 0.75;
           if (level == 30) powerUp += 45 + basePower * 0.9;
+          setRarity('Epic')
         } else {
           powerUp += 20 + (basePower - 10) * 0.5;
           if (level == 5) powerUp += 3 + basePower * 0.1;
@@ -107,6 +108,7 @@ const Input = () => {
           if (level == 20) powerUp += 12 + basePower * 0.4;
           if (level == 25) powerUp += 15 + basePower * 0.5;
           if (level == 30) powerUp += 18 + basePower * 0.6;
+          setRarity('Rare');
         }
       }
       return powerUp;
@@ -165,7 +167,7 @@ const Input = () => {
         />
         MOBOX: upgrade cost
       </h2>
-      <p>Calculator for Momo NFT level upgrade cost </p>
+      <p>Calculator for {rarity} Momo NFT level upgrade cost </p>
       <h3>Require {total} USD</h3>
 
       <article>
