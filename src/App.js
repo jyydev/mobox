@@ -168,8 +168,12 @@ const Input = () => {
         MOBOX: upgrade cost
       </h2>
       <p>Calculator for {rarity} Momo NFT level upgrade cost </p>
-      <h3>Require ${total}</h3>
-      <p>Upgrade cost: ${total - price.momo} + momo cost: ${price.momo} </p>
+      <h3>
+        Require ${total}, ${parseFloat(total / powers.to).toFixed(2)} / hash
+      </h3>
+      <p>
+        Upgrade cost: ${total - price.momo} + momo cost: ${price.momo}{' '}
+      </p>
 
       <article>
         <form className='form'>
@@ -290,7 +294,7 @@ const Input = () => {
             <br />
             <div>{powers.to.toFixed()}</div>
             <small style={{ fontSize: '0.6rem' }}>
-              ${parseFloat(total / powers.to).toFixed(2)} / hash
+              ${parseFloat(price.momo / powers.to).toFixed(2)} / hash
             </small>
           </h4>
         </div>
