@@ -290,7 +290,7 @@ const Input = () => {
             <br />
             <div>{powers.to.toFixed()}</div>
             <small style={{ fontSize: '0.6rem' }}>
-              ${parseFloat(price.momo / powers.to).toFixed(2)} / hash
+              ${parseFloat(total / powers.to).toFixed(2)} / hash
             </small>
           </h4>
         </div>
