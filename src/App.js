@@ -168,7 +168,8 @@ const Input = () => {
         MOBOX: upgrade cost
       </h2>
       <p>Calculator for {rarity} Momo NFT level upgrade cost </p>
-      <h3>Require {total} USD</h3>
+      <h3>Require ${total}</h3>
+      <p>Upgrade cost: ${total - price.momo} + momo cost: ${price.momo} </p>
 
       <article>
         <form className='form'>
@@ -318,7 +319,7 @@ const Input = () => {
 
         <div className='item'>
           <p>Require</p>
-          <h3>{total}</h3>
+          <h3>${total}</h3>
           <p>USD</p>
         </div>
         {rarities.map((rarity, i) => {
