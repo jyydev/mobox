@@ -2,45 +2,47 @@ import React, { useState, useEffect } from 'react';
 
 const Input = () => {
   const [price, setPrice] = useState({
+    momo: 0,
     common: 20,
-    uncommon: 20,
-    unique: 20,
-    rare: 400,
+    uncommon: 15,
+    unique: 15,
+    rare: 600,
   });
-  const rarities = ['common', 'uncommon', 'unique', 'rare'];
+  const rarities = ['momo', 'common', 'uncommon', 'unique', 'rare'];
 
   const costs = {
-    1: [2, 0, 0, 0],
-    2: [1, 1, 0, 0],
-    3: [1, 2, 0, 0],
-    4: [2, 2, 0, 0],
-    5: [3, 0, 0, 0],
-    6: [2, 2, 0, 0],
-    7: [3, 2, 0, 0],
-    8: [2, 2, 1, 0],
-    9: [3, 1, 1, 0],
-    10: [5, 0, 0, 0],
-    11: [2, 3, 0, 0],
-    12: [4, 3, 0, 0],
-    13: [3, 3, 2, 0],
-    14: [4, 2, 2, 0],
-    15: [6, 1, 0, 0],
-    16: [3, 4, 0, 0],
-    17: [5, 4, 0, 0],
-    18: [4, 4, 3, 0],
-    19: [5, 3, 3, 1],
-    20: [7, 2, 0, 0],
-    21: [4, 5, 0, 0],
-    22: [6, 5, 0, 0],
-    23: [5, 5, 4, 0],
-    24: [5, 3, 3, 1],
-    25: [8, 3, 0, 0],
-    26: [5, 6, 0, 0],
-    27: [7, 6, 0, 0],
-    28: [6, 6, 5, 0],
-    29: [5, 3, 3, 2],
+    1: [0, 2, 0, 0, 0],
+    2: [0, 1, 1, 0, 0],
+    3: [0, 1, 2, 0, 0],
+    4: [0, 2, 2, 0, 0],
+    5: [0, 3, 0, 0, 0],
+    6: [0, 2, 2, 0, 0],
+    7: [0, 3, 2, 0, 0],
+    8: [0, 2, 2, 1, 0],
+    9: [0, 3, 1, 1, 0],
+    10: [0, 5, 0, 0, 0],
+    11: [0, 2, 3, 0, 0],
+    12: [0, 4, 3, 0, 0],
+    13: [0, 3, 3, 2, 0],
+    14: [0, 4, 2, 2, 0],
+    15: [0, 6, 1, 0, 0],
+    16: [0, 3, 4, 0, 0],
+    17: [0, 5, 4, 0, 0],
+    18: [0, 4, 4, 3, 0],
+    19: [0, 5, 3, 3, 1],
+    20: [0, 7, 2, 0, 0],
+    21: [0, 4, 5, 0, 0],
+    22: [0, 6, 5, 0, 0],
+    23: [0, 5, 5, 4, 0],
+    24: [0, 5, 3, 3, 1],
+    25: [0, 8, 3, 0, 0],
+    26: [0, 5, 6, 0, 0],
+    27: [0, 7, 6, 0, 0],
+    28: [0, 6, 6, 5, 0],
+    29: [0, 5, 3, 3, 2],
   };
   const [sum, setSum] = useState({
+    momo: 0,
     common: 0,
     uncommon: 0,
     unique: 0,
@@ -54,17 +56,14 @@ const Input = () => {
   });
 
   const [basePower, setBasePower] = useState(110);
+  const [bonusPower, setBonusPower] = useState(10);
+  const [set, setSet] = useState(true);
   const [powers, setPowers] = useState({
     from: 0,
     to: 0,
     increased: 0,
   });
-  // const [mbox, setMbox] = useState(0);
-  // var mbox = {
-  //   from: powers.from * 2 / 100,
-  //   to: powers.to * 2,
-  //   increased: powers.increased * 2,
-  // };
+
   const [mbox, setMbox] = useState({
     from: 0,
     to: 0,
@@ -83,6 +82,7 @@ const Input = () => {
   }, [powers]);
 
   useEffect(() => {
+    var momo = 1;
     var common = 0;
     var uncommon = 0;
     var unique = 0;
@@ -108,6 +108,22 @@ const Input = () => {
         to: levelUp(level[1]),
         increased: levelUp(level[1]) - levelUp(level[0]),
       });
+      if (set) {
+        setPowers((prev) => ({
+          ...prev,
+          from: prev.from + 300,
+          to: prev.to + 300,
+          increased: prev.increased + 300,
+        }));
+      }
+      if (bonusPower) {
+        setPowers((prev) => ({
+          ...prev,
+          from: prev.from * (1 + bonusPower / 100),
+          to: prev.to * (1 + bonusPower / 100),
+          increased: prev.increased * (1 + bonusPower / 100),
+        }));
+      }
     }
     getPowers();
 
@@ -120,12 +136,13 @@ const Input = () => {
       }
     });
     setSum({
+      momo,
       common,
       uncommon,
       unique,
       rare,
     });
-  }, [price, level, basePower]);
+  }, [price, level, basePower, bonusPower, set]);
 
   return (
     <>
@@ -139,7 +156,7 @@ const Input = () => {
         MOBOX: upgrade cost
       </h2>
       <p>Calculator for Momo NFT level upgrade cost </p>
-      <h3>{total} USD</h3>
+      <h3>Require {total} USD</h3>
 
       <article>
         <form className='form'>
@@ -212,6 +229,28 @@ const Input = () => {
               onChange={(e) => {
                 setBasePower(parseInt(e.target.value) || 0);
               }}
+            />{' '}
+            Bonus: {}
+            <input
+              type='text'
+              id='from'
+              name='from'
+              value={bonusPower}
+              size='3'
+              onChange={(e) => {
+                setBonusPower(parseInt(e.target.value) || 0);
+              }}
+            />
+            %
+          </div>
+          <div>
+            <span>Rare set: +300 hash power</span> {}
+            <input
+              type='checkbox'
+              id='from'
+              name='from'
+              checked={set}
+              onChange={() => setSet(!set)}
             />
           </div>
         </form>
@@ -225,6 +264,9 @@ const Input = () => {
           <h3>
             <small>Hash power</small>
             <div>+{powers.increased.toFixed()}</div>
+            <small style={{'fontSize':'0.8rem'}}>
+              ({parseInt(powers.increased / total)} hash power / USD)
+            </small>
           </h3>
           <h4>
             <small>Lvl {level[1]}</small>
@@ -260,7 +302,7 @@ const Input = () => {
           <h3>{total}</h3>
           <p>USD</p>
         </div>
-        {rarities.map((rarity,i) => {
+        {rarities.map((rarity, i) => {
           return (
             <div className='item' key={i}>
               <small>{rarity}:</small>
