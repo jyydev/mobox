@@ -222,8 +222,8 @@ const Input = () => {
             <span>Base hash power : </span>
             <input
               type='text'
-              id='from'
-              name='from'
+              id='base'
+              name='base'
               value={basePower}
               size='4'
               onChange={(e) => {
@@ -233,8 +233,8 @@ const Input = () => {
             Bonus: {}
             <input
               type='text'
-              id='from'
-              name='from'
+              id='bonus'
+              name='bonus'
               value={bonusPower}
               size='3'
               onChange={(e) => {
@@ -244,11 +244,12 @@ const Input = () => {
             %
           </div>
           <div>
-            <span>Rare set: +300 hash power</span> {}
+            <label for='set'>Rare set: +300 hash power</label> {}
             <input
+              class='styled-checkbox'
               type='checkbox'
-              id='from'
-              name='from'
+              id='set'
+              name='set'
               checked={set}
               onChange={() => setSet(!set)}
             />
@@ -260,18 +261,24 @@ const Input = () => {
         <div className='item'>
           <h4>
             <small>Lvl {level[0]}</small> <div>{powers.from.toFixed()}</div>
+            <small style={{ fontSize: '0.6rem' }}>
+              ${parseFloat(price.momo / powers.from).toFixed(2)} / hash
+            </small>
           </h4>
           <h3>
             <small>Hash power</small>
             <div>+{powers.increased.toFixed()}</div>
             <small style={{ fontSize: '0.8rem' }}>
-              ({parseFloat(total / powers.increased).toFixed(2)} USD / hash power)
+              ${parseFloat(total / powers.increased).toFixed(2)} / hash
             </small>
           </h3>
           <h4>
             <small>Lvl {level[1]}</small>
             <br />
             <div>{powers.to.toFixed()}</div>
+            <small style={{ fontSize: '0.6rem' }}>
+              ${parseFloat(price.momo / powers.to).toFixed(2)} / hash
+            </small>
           </h4>
         </div>
         <div className='item'>
