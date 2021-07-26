@@ -264,8 +264,8 @@ const Input = () => {
           <h3>
             <small>Hash power</small>
             <div>+{powers.increased.toFixed()}</div>
-            <small style={{'fontSize':'0.8rem'}}>
-              ({parseInt(powers.increased / total)} hash power / USD)
+            <small style={{ fontSize: '0.8rem' }}>
+              ({parseFloat(total / powers.increased).toFixed(2)} USD / hash power)
             </small>
           </h3>
           <h4>
