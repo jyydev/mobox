@@ -56,12 +56,15 @@ const Input = () => {
   });
 
   const [basePower, setBasePower] = useState(110);
-  const [bonusPower, setBonusPower] = useState(0);
+  const [bonusPower, setBonusPower] = useState(14);
   const [set, setSet] = useState(false);
   const [powers, setPowers] = useState({
     from: 0,
     to: 0,
     increased: 0,
+    baseFrom: 0,
+    baseTo: 0,
+    baseIncreased: 0,
   });
 
   const [mbox, setMbox] = useState({
@@ -91,7 +94,7 @@ const Input = () => {
     function levelUp(level) {
       var powerUp = basePower;
       for (; level > 1; level--) {
-        if (basePower >=50) {
+        if (basePower >= 50) {
           powerUp += 25 + basePower * 0.5;
           if (level == 5) powerUp += 7 + basePower * 0.15;
           if (level == 10) powerUp += 15 + basePower * 0.3;
@@ -99,7 +102,7 @@ const Input = () => {
           if (level == 20) powerUp += 30 + basePower * 0.6;
           if (level == 25) powerUp += 37 + basePower * 0.75;
           if (level == 30) powerUp += 45 + basePower * 0.9;
-          setRarity('Epic')
+          setRarity('Epic');
         } else {
           powerUp += 20 + (basePower - 10) * 0.5;
           if (level == 5) powerUp += 3 + basePower * 0.1;
@@ -119,6 +122,10 @@ const Input = () => {
         from: levelUp(level[0]),
         to: levelUp(level[1]),
         increased: levelUp(level[1]) - levelUp(level[0]),
+
+        baseFrom: levelUp(level[0]),
+        baseTo: levelUp(level[1]),
+        baseIncreased: levelUp(level[1]) - levelUp(level[0]),
       });
       if (set) {
         setPowers((prev) => ({
@@ -277,22 +284,31 @@ const Input = () => {
 
         <div className='item'>
           <h4>
-            <small>Lvl {level[0]}</small> <div>{powers.from.toFixed()}</div>
+            <p>Lvl {level[0]}</p>
+            <div>
+              <small>{powers.baseFrom.toFixed()} &#10132;</small>{' '}
+              {powers.from.toFixed()}
+            </div>
             <small style={{ fontSize: '0.6rem' }}>
               ${parseFloat(price.momo / powers.from).toFixed(2)} / hash
             </small>
           </h4>
           <h3>
             <small>Hash power</small>
-            <div>+{powers.increased.toFixed()}</div>
+            <div>
+              <small>+{powers.baseIncreased.toFixed()} &#10132;</small> +
+              {powers.increased.toFixed()}
+            </div>
             <small style={{ fontSize: '0.8rem' }}>
               ${parseFloat(total / powers.increased).toFixed(2)} / hash
             </small>
           </h3>
           <h4>
-            <small>Lvl {level[1]}</small>
-            <br />
-            <div>{powers.to.toFixed()}</div>
+            <p>Lvl {level[1]}</p>
+            <div>
+              <small>{powers.baseTo.toFixed()} &#10132;</small>{' '}
+              {powers.to.toFixed()}
+            </div>
             <small style={{ fontSize: '0.6rem' }}>
               ${parseFloat(price.momo / powers.to).toFixed(2)} / hash
             </small>
