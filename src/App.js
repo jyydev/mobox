@@ -9,7 +9,6 @@ const Input = () => {
     rare: 600,
   });
   const rarities = ['momo', 'common', 'uncommon', 'unique', 'rare'];
-  const [rarity, setRarity] = useState('rare');
 
   const costs = {
     1: [2, 0, 0, 0],
@@ -58,7 +57,6 @@ const Input = () => {
 
   const [basePower, setBasePower] = useState(110);
   const [bonusPower, setBonusPower] = useState(0);
-  // const [bonusPower, setBonusPower] = useState(14);
   const [set, setSet] = useState(false);
   const [powers, setPowers] = useState({
     from: 0,
@@ -93,7 +91,7 @@ const Input = () => {
     function levelUp(level) {
       var powerUp = basePower;
       for (; level > 1; level--) {
-        if (rarity === 'rare') {
+        if (basePower >=50) {
           powerUp += 25 + basePower * 0.5;
           if (level == 5) powerUp += 7 + basePower * 0.15;
           if (level == 10) powerUp += 15 + basePower * 0.3;
@@ -101,7 +99,7 @@ const Input = () => {
           if (level == 20) powerUp += 30 + basePower * 0.6;
           if (level == 25) powerUp += 37 + basePower * 0.75;
           if (level == 30) powerUp += 45 + basePower * 0.9;
-        } else if (rarity === 'unique') {
+        } else {
           powerUp += 20 + (basePower - 10) * 0.5;
           if (level == 5) powerUp += 3 + basePower * 0.1;
           if (level == 10) powerUp += 6 + basePower * 0.2;
@@ -154,7 +152,7 @@ const Input = () => {
       unique,
       rare,
     });
-  }, [price, rarity, level, basePower, bonusPower, set]);
+  }, [price, level, basePower, bonusPower, set]);
 
   return (
     <>
@@ -194,31 +192,6 @@ const Input = () => {
                 </React.Fragment>
               );
             })}
-          </div>
-          <div>
-            <span>Rarity : </span>
-            <input
-              type='radio'
-              id='radio_unique'
-              name='rarity'
-              value='unique'
-              checked={rarity === 'unique'}
-              onChange={() => {
-                setRarity('unique');
-              }}
-            />
-              <label htmlFor='radio_unique'>Unique</label>
-            <input
-              type='radio'
-              id='radio_rare'
-              name='rarity'
-              value='unique'
-              checked={rarity === 'rare'}
-              onChange={() => {
-                setRarity('rare');
-              }}
-            />
-              <label htmlFor='radio_rare'>Rare</label>
           </div>
 
           <div>
