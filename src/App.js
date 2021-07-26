@@ -56,7 +56,7 @@ const Input = () => {
   });
 
   const [basePower, setBasePower] = useState(110);
-  const [bonusPower, setBonusPower] = useState(10);
+  const [bonusPower, setBonusPower] = useState(14);
   const [set, setSet] = useState(true);
   const [powers, setPowers] = useState({
     from: 0,
