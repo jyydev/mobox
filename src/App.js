@@ -127,20 +127,20 @@ const Input = () => {
         baseTo: levelUp(level[1]),
         baseIncreased: levelUp(level[1]) - levelUp(level[0]),
       });
-      if (bonusPower) {
-        setPowers((prev) => ({
-          ...prev,
-          from: prev.from * (1 + bonusPower / 100),
-          to: prev.to * (1 + bonusPower / 100),
-          increased: prev.increased * (1 + bonusPower / 100),
-        }));
-      }
       if (set) {
         setPowers((prev) => ({
           ...prev,
           from: prev.from + 300,
           to: prev.to + 300,
           increased: prev.increased + 300,
+        }));
+      }
+      if (bonusPower) {
+        setPowers((prev) => ({
+          ...prev,
+          from: prev.from * (1 + bonusPower / 100),
+          to: prev.to * (1 + bonusPower / 100),
+          increased: prev.increased * (1 + bonusPower / 100),
         }));
       }
     }
